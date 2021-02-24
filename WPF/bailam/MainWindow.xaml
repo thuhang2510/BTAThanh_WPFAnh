@@ -1,0 +1,24 @@
+﻿<Window x:Class="bailam.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bailam"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Canvas x:Name="khungve" Grid.Column="0" Margin="20px" Background="AliceBlue">
+        </Canvas>
+
+        <StackPanel Grid.Column="1" Margin="20px" VerticalAlignment="Center" Button.Click="btn">
+            <Button x:Name="btnTron" Margin="10px" Height="30px" Content="hình tròn"/>
+            <Button x:Name="btnHCN" Margin="10px" Height="30px" Content="hình chữ nhật"/>
+            <Button x:Name="btnCho" Margin="10px" Height="30px" Content="hình con chó"/>
+        </StackPanel>
+    </Grid>
+</Window>
