@@ -41,6 +41,10 @@ namespace bailam
                 var image = new Image();
                 image.Source = imageSource;
 
+                image.MouseLeftButtonDown += shape_MouseLeftButtonDown;
+                image.MouseMove += shape_MouseMove;
+                image.MouseLeftButtonUp += shape_MouseLeftButtonUp;
+
                 image.Width = rong;
                 image.Height = cao;
 
@@ -52,6 +56,10 @@ namespace bailam
             else if (feSource.Name == "btnHCN")
             {
                 Rectangle redRectangle = new Rectangle();
+
+                redRectangle.MouseLeftButtonDown += shape_MouseLeftButtonDown;
+                redRectangle.MouseMove += shape_MouseMove;
+                redRectangle.MouseLeftButtonUp += shape_MouseLeftButtonUp;
 
                 redRectangle.Width = cao;
                 redRectangle.Height = rong;
@@ -69,6 +77,10 @@ namespace bailam
             {
                 Ellipse ellipse = new Ellipse();
 
+                ellipse.MouseLeftButtonDown += shape_MouseLeftButtonDown;
+                ellipse.MouseMove += shape_MouseMove;
+                ellipse.MouseLeftButtonUp += shape_MouseLeftButtonUp;
+
                 ellipse.Width = rong;
                 ellipse.Height = rong;
 
@@ -81,6 +93,43 @@ namespace bailam
 
                 khungve.Children.Add(ellipse);
             }
+        }
+
+        bool captured = false;
+        double x_shape, y_shape, x_start, y_start;
+        UIElement source = null;
+
+        private void shape_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            source = (UIElement)sender;
+            Mouse.Capture(source);
+            captured = true;
+            x_shape = Canvas.GetLeft(source);
+            x_start = e.GetPosition(khungve).X;
+            y_shape = Canvas.GetTop(source);
+            y_start = e.GetPosition(khungve).Y;
+        }
+
+        private void shape_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (captured)
+            {
+                double x = e.GetPosition(khungve).X;
+                double y = e.GetPosition(khungve).Y;
+
+                x_shape += x - x_start;
+                Canvas.SetLeft(source, x_shape);
+                y_shape += y - y_start;
+                Canvas.SetTop(source, y_shape);
+                x_start = x;
+                y_start = y;
+            }
+        }
+
+        private void shape_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Mouse.Capture(null);
+            captured = false;
         }
     }
 }
